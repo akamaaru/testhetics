@@ -8,17 +8,17 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhetics.R
-import com.example.testhetics.utils.VariantsRecyclerViewInterface
+import com.example.testhetics.utils.ChoicesRecyclerViewInterface
 
 class ChoiceAdapter(
     private val context: Context,
-    private val recyclerViewInterface: VariantsRecyclerViewInterface,
+    private val recyclerViewInterface: ChoicesRecyclerViewInterface,
     private val variants: ArrayList<String>,
     private val correctAnswerIndex: Int
 ) : RecyclerView.Adapter<ChoiceAdapter.ChoiceViewHolder>() {
     class ChoiceViewHolder(
         private val context: Context,
-        private val recyclerViewInterface: VariantsRecyclerViewInterface,
+        private val recyclerViewInterface: ChoicesRecyclerViewInterface,
         itemView: View,
     ) : RecyclerView.ViewHolder(itemView) {
         val btnChoice: Button = itemView.findViewById(R.id.btn_choice)
@@ -28,7 +28,7 @@ class ChoiceAdapter(
         init {
             btnChoice.setOnClickListener {
                 isChosen = true
-                recyclerViewInterface.checkAnswer(this)
+                recyclerViewInterface.onItemClick(this.absoluteAdapterPosition)
             }
         }
 

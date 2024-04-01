@@ -2,6 +2,7 @@ package com.example.testhetics.activities
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,7 +26,7 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
     lateinit var etName: EditText
     lateinit var etDescription: EditText
     lateinit var questions: ArrayList<QuestionModel>
-    lateinit var adapter: QuestionAdapter
+    lateinit var questionAdapter: QuestionAdapter
     lateinit var recyclerView: RecyclerView
 
     private fun init() {
@@ -41,14 +42,15 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
         progressDialog.setTitle("Создание нового квиза")
         progressDialog.setMessage("Пожалуйста, подождите")
 
-        questions = arrayListOf()
-        adapter = QuestionAdapter(
+        questions = arrayListOf(QuestionModel())
+        questionAdapter = QuestionAdapter(
+            this,
             this,
             questions
         )
 
         recyclerView = findViewById(R.id.rv_questions)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = questionAdapter
         recyclerView.addItemDecoration(MarginItemDecoration(16))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -62,7 +64,7 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
 
         btnAddQuestion.setOnClickListener {
             questions.add(QuestionModel())
-            adapter.notifyItemInserted(questions.size - 1)
+            questionAdapter.notifyItemInserted(questions.size - 1)
         }
 
         btnCreate.setOnClickListener {
@@ -70,12 +72,16 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
         }
     }
 
-    override fun onItemDelete(position: Int) {
-        questions.removeAt(position)
-        adapter.notifyItemRemoved(position)
+    override fun onQuestionCheck(questionPosition: Int, variantPosition: Int) {
+        questions[questionPosition].correctAnswerIndex = variantPosition
+    }
 
-        for (i in position..<questions.size) {
-            adapter.notifyItemChanged(i)
+    override fun onQuestionDelete(questionPosition: Int) {
+        questions.removeAt(questionPosition)
+        questionAdapter.notifyItemRemoved(questionPosition)
+
+        for (i in questionPosition..<questions.size) {
+            questionAdapter.notifyItemChanged(i)
         }
     }
 

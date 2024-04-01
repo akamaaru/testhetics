@@ -1,7 +1,6 @@
 package com.example.testhetics.utils
 
-import com.example.testhetics.adapters.ChoiceAdapter
-
 interface VariantsRecyclerViewInterface {
-    fun checkAnswer(choice: ChoiceAdapter.ChoiceViewHolder)
+    fun onVariantCheck(position: Int)
+    fun onVariantDelete(position: Int)
 }

@@ -1,50 +1,63 @@
 package com.example.testhetics.adapters
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.TextView
-import androidx.core.view.children
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhetics.R
 import com.example.testhetics.models.QuestionModel
 import com.example.testhetics.utils.QuestionsRecyclerViewInterface
+import com.example.testhetics.utils.VariantsRecyclerViewInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class QuestionAdapter(
+    private val context: Context,
     private val recyclerViewInterface: QuestionsRecyclerViewInterface,
     private val questions: ArrayList<QuestionModel>,
 ) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
-
     class QuestionViewHolder(
-        recyclerViewInterface: QuestionsRecyclerViewInterface,
+        val context: Context,
+        val recyclerViewInterface: QuestionsRecyclerViewInterface,
         itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(itemView), VariantsRecyclerViewInterface {
         val tvTitle: TextView = itemView.findViewById(R.id.tv_question_title)
         val etName: EditText = itemView.findViewById(R.id.et_question_name)
-        val rgCorrectAnswer: RadioGroup = itemView.findViewById(R.id.rg_correct_answer)
-
-        val etVariant1: EditText = itemView.findViewById(R.id.et_variant_1)
-        val etVariant2: EditText = itemView.findViewById(R.id.et_variant_2)
-        val etVariant3: EditText = itemView.findViewById(R.id.et_variant_3)
-        val etVariant4: EditText = itemView.findViewById(R.id.et_variant_4)
-        val etVariants = arrayListOf(
-            etVariant1,
-            etVariant2,
-            etVariant3,
-            etVariant4
+        var variants: ArrayList<String> = arrayListOf("", "", "", "")
+        val rvVariants: RecyclerView = itemView.findViewById(R.id.rv_variants)
+        var variantAdapter: VariantAdapter = VariantAdapter(
+            context,
+            variants,
+            this
         )
 
-        private var btnDelete: FloatingActionButton =
+        var btnDeleteQuestion: FloatingActionButton =
             itemView.findViewById(R.id.btn_delete_question)
+        var btnAddVariant: FloatingActionButton =
+            itemView.findViewById(R.id.btn_add_variant)
 
-        init {
-            btnDelete.setOnClickListener {
-                recyclerViewInterface.onItemDelete(absoluteAdapterPosition)
+        override fun onVariantCheck(position: Int) {
+            for (i in 0..<rvVariants.childCount) {
+                val holder: VariantAdapter.VariantViewHolder =
+                    rvVariants.findViewHolderForAdapterPosition(i) as VariantAdapter.VariantViewHolder
+                holder.radioButton.isChecked = i == position
+            }
+
+            recyclerViewInterface.onQuestionCheck(absoluteAdapterPosition, position)
+        }
+
+        override fun onVariantDelete(position: Int) {
+            variants.removeAt(position)
+            variantAdapter.notifyItemRemoved(position)
+
+            for (i in position..<variants.size) {
+                variantAdapter.notifyItemChanged(i)
             }
         }
     }
@@ -53,6 +66,7 @@ class QuestionAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_question, parent, false)
         return QuestionViewHolder(
+            context,
             recyclerViewInterface,
             view
         )
@@ -65,6 +79,8 @@ class QuestionAdapter(
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val title = "Вопрос №${position + 1}"
         holder.tvTitle.text = title
+        holder.variants = questions[position].variants
+        holder.variantAdapter.notifyItemRangeChanged(0, holder.variants.size)
 
         holder.etName.setText(questions[position].question)
         holder.etName.addTextChangedListener(object : TextWatcher {
@@ -77,34 +93,33 @@ class QuestionAdapter(
             }
         })
 
-        for (i in 0..<holder.etVariants.size) {
-            holder.etVariants[i].setText(questions[position].variants[i])
-            holder.etVariants[i].addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
+        holder.btnDeleteQuestion.setOnClickListener {
+            if (questions.size == 1) {
+                Toast.makeText(context, "Квиз не может быть без вопросов!", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-                override fun afterTextChanged(s: Editable?) {
-                    questions[holder.absoluteAdapterPosition].variants[i] = s.toString()
-                }
-            })
+            recyclerViewInterface.onQuestionDelete(position)
         }
 
-        val rbCorrectId = holder.rgCorrectAnswer.children.find {
-            val index =
-                holder.rgCorrectAnswer.indexOfChild(holder.rgCorrectAnswer.findViewById(it.id))
-            return@find index == questions[position].correctAnswerIndex
-        }!!.id
-        holder.rgCorrectAnswer.check(rbCorrectId)
-        holder.rgCorrectAnswer.setOnCheckedChangeListener { group, checkedId ->
-            val correctAnswerIndex: Int = group.indexOfChild(group.findViewById(checkedId))
-            questions[holder.absoluteAdapterPosition].correctAnswerIndex = correctAnswerIndex
+        holder.btnAddVariant.setOnClickListener {
+            val maxVariantNumber = 6
+            if (holder.variants.size == maxVariantNumber) {
+                Toast.makeText(
+                    context,
+                    "Вопрос не может превышать $maxVariantNumber вариантов!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            questions[position].variants.add("")
+            holder.variantAdapter.notifyItemInserted(holder.variants.size - 1)
         }
+
+        holder.rvVariants.layoutManager = LinearLayoutManager(holder.itemView.context)
+        holder.variantAdapter = VariantAdapter(context, holder.variants, holder)
+        holder.rvVariants.adapter = holder.variantAdapter
     }
 }

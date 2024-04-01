@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testhetics.R
 import com.example.testhetics.adapters.ChoiceAdapter
 import com.example.testhetics.models.QuestionModel
-import com.example.testhetics.utils.VariantsRecyclerViewInterface
+import com.example.testhetics.utils.ChoicesRecyclerViewInterface
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PassingActivity : DefaultActivity(), VariantsRecyclerViewInterface {
+class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
     lateinit var QUIZ_KEY: String
     lateinit var QUESTION_KEY: String
     lateinit var questions: ArrayList<QuestionModel>
@@ -189,9 +189,7 @@ class PassingActivity : DefaultActivity(), VariantsRecyclerViewInterface {
         }, 1000)
     }
 
-    override fun checkAnswer(choice: ChoiceAdapter.ChoiceViewHolder) {
-        val chosenIndex = rvChoice.getChildLayoutPosition(choice.itemView)
-
+    override fun onItemClick(position: Int) {
         for (i in 0..<rvChoice.childCount) {
             val holder: ChoiceAdapter.ChoiceViewHolder =
                 rvChoice.findViewHolderForAdapterPosition(i) as ChoiceAdapter.ChoiceViewHolder
@@ -204,7 +202,7 @@ class PassingActivity : DefaultActivity(), VariantsRecyclerViewInterface {
         btnNext.isEnabled = true
         btnNext.alpha = 1F
 
-        if (chosenIndex == questions[position].correctAnswerIndex) {
+        if (position == questions[this.position].correctAnswerIndex) {
             ++score
         }
     }

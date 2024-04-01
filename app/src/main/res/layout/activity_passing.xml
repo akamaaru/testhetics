@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_access_time_24"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/tv_time"
                 app:layout_constraintTop_toTopOf="@+id/tv_passing_question_title" />
 
@@ -105,8 +105,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_choice"
-        tools:visibility="gone">
+        tools:itemCount="3"
+        tools:listitem="@layout/item_choice">
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_variant_1"-->

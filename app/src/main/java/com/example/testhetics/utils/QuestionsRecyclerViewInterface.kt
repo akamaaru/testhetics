@@ -1,5 +1,6 @@
 package com.example.testhetics.utils
 
 interface QuestionsRecyclerViewInterface {
-    fun onItemDelete(position: Int)
+    fun onQuestionCheck(questionPosition: Int, variantPosition: Int)
+    fun onQuestionDelete(questionPosition: Int)
 }
