@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    tools:context=".activities.AuthenticationActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_default" />
+
+    <EditText
+        android:id="@+id/et_login"
+        style="@style/PlainTextIconStyle"
+        android:autofillHints=""
+        android:drawableStart="@drawable/baseline_email_24"
+        android:hint="@string/login_prompt"
+        android:inputType="text|textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_password"
+        style="@style/PlainTextIconStyle"
+        android:layout_marginTop="16dp"
+        android:autofillHints=""
+        android:drawableStart="@drawable/baseline_lock_24"
+        android:hint="@string/password_prompt"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/et_login"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_login"
+        app:layout_constraintTop_toBottomOf="@+id/et_login" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:layout_constraintVertical_bias="0.765"
+        app:srcCompat="@drawable/logo"
+        app:tint="@color/cyan"
+        tools:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/tv_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/registration_label"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_authenticate"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/btn_authenticate"
+        app:layout_constraintTop_toBottomOf="@+id/btn_authenticate" />
+
+    <Button
+        android:id="@+id/btn_authenticate"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="16dp"
+        android:text="@string/loginButtonText"
+        app:layout_constraintEnd_toEndOf="@+id/et_password"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="@+id/et_password"
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+    <ProgressBar
+        android:id="@+id/pb_authentication"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/blue"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_authenticate"
+        app:layout_constraintStart_toEndOf="@+id/btn_authenticate"
+        app:layout_constraintTop_toTopOf="@+id/btn_authenticate"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

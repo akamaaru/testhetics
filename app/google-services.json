@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "894103861948",
+    "firebase_url": "https://testhetics-7ab63-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "testhetics-7ab63",
+    "storage_bucket": "testhetics-7ab63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894103861948:android:a74186349451d18a142eb9",
+        "android_client_info": {
+          "package_name": "com.example.testhetics"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPbJP0xaLzSHEeeXrPL8GIEZJnYbjm8Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

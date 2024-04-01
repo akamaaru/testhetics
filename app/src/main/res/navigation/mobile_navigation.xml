@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/explore_fragment">
+
+    <fragment
+        android:id="@+id/create_fragment"
+        android:name="com.example.testhetics.fragments.CreateFragment"
+        android:label="Создание"
+        tools:layout="@layout/fragment_create" />
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="com.example.testhetics.fragments.ExploreFragment"
+        android:label="Обзор"
+        tools:layout="@layout/fragment_explore" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.example.testhetics.fragments.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

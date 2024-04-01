@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Testhetics" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/lightCyan</item>
+        <item name="colorPrimaryVariant">@color/lightCyan</item>
+        <item name="colorPrimaryDark">@color/cyan</item>
+        <item name="colorAccent">@color/coral</item>
+        <item name="android:statusBarColor">@color/cyan</item>
+        <item name="android:navigationBarColor">@color/cyan</item>
+        <item name="navigationViewStyle">@style/navigationBarStyle</item>
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+        <item name="buttonStyle">@style/ButtonStyle</item>
+        <item name="editTextStyle">@style/PlainTextStyle</item>
+        <item name="android:colorBackground">@color/lightCyan</item>
+        <item name="autoCompleteTextViewStyle">@style/PlainTextStyle</item>
+        <item name="android:textViewStyle">@style/montserratStyle.White</item>
+        <item name="android:itemTextAppearance">@style/montserratStyle.Black</item>
+        <item name="alertDialogStyle">@style/AlertDialogStyle</item>
+    </style>
+</resources>
