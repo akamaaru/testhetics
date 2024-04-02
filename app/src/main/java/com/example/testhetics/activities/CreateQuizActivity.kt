@@ -14,12 +14,14 @@ import com.example.testhetics.adapters.QuestionAdapter
 import com.example.testhetics.models.QuestionModel
 import com.example.testhetics.utils.MarginItemDecoration
 import com.example.testhetics.utils.QuestionsRecyclerViewInterface
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
     lateinit var QUIZ_KEY: String
     lateinit var databaseReference: DatabaseReference
+    lateinit var auth: FirebaseAuth
     lateinit var progressDialog: ProgressDialog
     lateinit var btnAddQuestion: Button
     lateinit var btnCreate: Button
@@ -37,6 +39,7 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
         btnAddQuestion = findViewById(R.id.btn_add_question)
         btnCreate = findViewById(R.id.btn_create)
         databaseReference = FirebaseDatabase.getInstance().getReference(QUIZ_KEY)
+        auth = FirebaseAuth.getInstance()
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Создание нового квиза")
@@ -96,7 +99,7 @@ class CreateQuizActivity : DefaultActivity(), QuestionsRecyclerViewInterface {
 
         progressDialog.show()
 
-        val newQuizModel = QuizModel(name, description, questions)
+        val newQuizModel = QuizModel(name, description, questions, auth.currentUser!!.email!!)
         databaseReference.child(newQuizModel.id.toString()).setValue(newQuizModel)
 
         progressDialog.dismiss()

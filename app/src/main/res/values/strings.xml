@@ -35,4 +35,6 @@
     <string name="tv_greetings_text">С возвращением!</string>
     <string name="tv_account_info_label" />
     <string name="tv_account_label_text">Вы вошли под аккаунтом:</string>
+    <string name="tv_profile_quizzes_text">Ваши квизы:</string>
+    <string name="tv_no_quizzes_text">Квизов пока что нет!</string>
 </resources>
