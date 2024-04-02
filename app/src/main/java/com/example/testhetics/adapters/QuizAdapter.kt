@@ -1,13 +1,11 @@
 package com.example.testhetics.adapters
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhetics.R
 import com.example.testhetics.activities.PreparationActivity
@@ -45,7 +43,10 @@ class QuizAdapter(
         return QuizViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
+    override fun onBindViewHolder(
+
+        holder: QuizViewHolder,
+        position: Int) {
         databaseReference = FirebaseDatabase.getInstance().getReference(QUIZ_KEY)
 
         val currentItem = quizzes[position]
@@ -66,8 +67,7 @@ class QuizAdapter(
                 holder.pbDeletion.visibility = View.GONE
 
                 if (it.isSuccessful) {
-//                    quizzes.removeAt(position)
-//                    notifyItemRemoved(position)
+                    notifyItemRemoved(position)
                 }
             }
         }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +13,7 @@ import com.example.testhetics.R
 import com.example.testhetics.adapters.QuizAdapter
 import com.example.testhetics.models.QuizModel
 import com.example.testhetics.utils.MarginItemDecoration
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
         recyclerView.addItemDecoration(MarginItemDecoration(20))
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
+        val option = FirebaseRecyclerOptions.Builder<QuizModel>()
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -51,7 +52,11 @@ class ProfileFragment : Fragment() {
                         }
                     }
 
-                    recyclerView.adapter = QuizAdapter(QUIZ_KEY, list, true)
+                    recyclerView.adapter = QuizAdapter(
+                        QUIZ_KEY,
+                        list,
+                        true
+                    )
                 }
             }
 

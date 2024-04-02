@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhetics.R
@@ -22,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 
 class ExploreFragment : Fragment() {
     lateinit var QUIZ_KEY: String
+
     // TODO: обобщить для всех типов
     lateinit var list: ArrayList<QuizModel>
     lateinit var cardNoQuizzes: CardView
@@ -50,12 +50,17 @@ class ExploreFragment : Fragment() {
                     for (dataSnapshot in snapshot.children) {
                         val model = dataSnapshot.getValue(QuizModel::class.java)
                         if (model != null &&
-                            model.author == auth.currentUser!!.email) {
+                            model.author == auth.currentUser!!.email
+                        ) {
                             list.add(model)
                         }
                     }
 
-                    recyclerView.adapter = QuizAdapter(QUIZ_KEY, list, false)
+                    recyclerView.adapter = QuizAdapter(
+                        QUIZ_KEY,
+                        list,
+                        false
+                    )
                 } else {
                     cardNoQuizzes.visibility = View.VISIBLE
                 }
