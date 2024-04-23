@@ -19,7 +19,7 @@ class QuizAdapter(
     private val quizzes: ArrayList<QuizModel>,
     private val isBtnDeleteVisible: Boolean
 ) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
-    lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
 
     class QuizViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvName: TextView = itemView.findViewById(R.id.tv_card_name)

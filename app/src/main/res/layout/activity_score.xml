@@ -23,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/img_trophy"
@@ -45,7 +45,7 @@
                 android:progress="60"
                 android:progressTint="@color/lightCyan"
                 app:indicatorColor="@color/lightCyan"
-                app:indicatorSize="90dp"
+                app:indicatorSize="130dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:trackColor="@color/coral"
@@ -68,43 +68,104 @@
                 app:layout_constraintVertical_bias="0.283" />
 
             <TextView
-                android:id="@+id/tv_score"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/tv_score_label"
-                app:layout_constraintStart_toStartOf="@+id/img_trophy"
-                app:layout_constraintTop_toBottomOf="@+id/img_trophy" />
-
-            <TextView
                 android:id="@+id/tv_time_label"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/tv_time_label"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_score"
-                app:layout_constraintTop_toBottomOf="@+id/tv_score" />
+                app:layout_constraintStart_toStartOf="@+id/iv_background2"
+                app:layout_constraintTop_toBottomOf="@+id/iv_background2" />
 
             <TextView
-                android:id="@+id/tv_score_value"
+                android:id="@+id/tv_score_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_score"
-                app:layout_constraintStart_toEndOf="@+id/tv_score"
-                app:layout_constraintTop_toTopOf="@+id/tv_score" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/score_indicator"
+                app:layout_constraintEnd_toEndOf="@+id/score_indicator"
+                app:layout_constraintStart_toStartOf="@+id/score_indicator"
+                app:layout_constraintTop_toTopOf="@+id/score_indicator" />
 
             <TextView
                 android:id="@+id/tv_time_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="_________"
+                android:layout_marginStart="8dp"
+                android:text="10c"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time_label"
                 app:layout_constraintStart_toEndOf="@+id/tv_time_label"
                 app:layout_constraintTop_toTopOf="@+id/tv_time_label" />
+
+            <ImageView
+                android:id="@+id/iv_background1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_circle_24"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_correct"
+                app:layout_constraintEnd_toEndOf="@+id/iv_correct"
+                app:layout_constraintStart_toStartOf="@+id/iv_correct"
+                app:layout_constraintTop_toTopOf="@+id/iv_correct"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_correct"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/baseline_check_circle_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_trophy"
+                app:tint="@color/lightCyan" />
+
+            <ImageView
+                android:id="@+id/iv_background2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_circle_24"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_incorrect"
+                app:layout_constraintEnd_toEndOf="@+id/iv_incorrect"
+                app:layout_constraintStart_toStartOf="@+id/iv_incorrect"
+                app:layout_constraintTop_toTopOf="@+id/iv_incorrect"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_incorrect"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/baseline_cancel_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_correct"
+                app:tint="@color/coral" />
+
+            <TextView
+                android:id="@+id/tv_correct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_background1"
+                app:layout_constraintStart_toEndOf="@+id/iv_background1"
+                app:layout_constraintTop_toTopOf="@+id/iv_background1" />
+
+            <TextView
+                android:id="@+id/tv_incorrect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_background2"
+                app:layout_constraintStart_toEndOf="@+id/iv_background2"
+                app:layout_constraintTop_toTopOf="@+id/iv_background2" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -15,11 +15,10 @@ import com.example.testhetics.utils.VariantsRecyclerViewInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class VariantAdapter(
-    val context: Context,
     val variants: ArrayList<String>,
     private val variantsRecyclerViewInterface: VariantsRecyclerViewInterface
 ) : RecyclerView.Adapter<VariantAdapter.VariantViewHolder>() {
-    var selectedItem = 0
+    private var selectedItem = 0
 
     class VariantViewHolder(
         itemView: View
@@ -70,7 +69,7 @@ class VariantAdapter(
             val minVariantNumber = 2
             if (variants.size == minVariantNumber) {
                 Toast.makeText(
-                    context,
+                    holder.btnDelete.context,
                     "Вопрос не может иметь менее $minVariantNumber вариантов!",
                     Toast.LENGTH_SHORT
                 ).show()

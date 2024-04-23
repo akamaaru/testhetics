@@ -6,11 +6,14 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.testhetics.R
 import com.example.testhetics.adapters.ChoiceAdapter
 import com.example.testhetics.models.QuestionModel
@@ -22,23 +25,26 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
-    lateinit var QUIZ_KEY: String
-    lateinit var QUESTION_KEY: String
+    private lateinit var QUIZ_KEY: String
+    private lateinit var QUESTION_KEY: String
     lateinit var questions: ArrayList<QuestionModel>
     lateinit var progressBar: ProgressBar
-    lateinit var databaseReference: DatabaseReference
-    lateinit var practiceName: String
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var practiceName: String
     lateinit var rvChoice: RecyclerView
     lateinit var choiceAdapter: ChoiceAdapter
     lateinit var btnNext: Button
     lateinit var tvTitle: TextView
     lateinit var tvQuestion: TextView
-    lateinit var timer: CountDownTimer
-    lateinit var timerHandler: Handler
+    private lateinit var timer: CountDownTimer
+    private lateinit var timerHandler: Handler
     lateinit var tvTime: TextView
+    private lateinit var cvQuestion: CardView
+    private lateinit var ivQuestion: ImageView
     var position = 0
     var variantsCount = 0
-    var score = 0
+    private var score = 0
+    private var time = 0
 
     private fun init() {
         btnNext = findViewById(R.id.btn_next)
@@ -53,6 +59,8 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
         tvQuestion = findViewById(R.id.tv_passing_question)
         progressBar = findViewById(R.id.progressBar)
         tvTime = findViewById(R.id.tv_time)
+        cvQuestion = findViewById(R.id.cv_question_passing)
+        ivQuestion = findViewById(R.id.iv_question_passing)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,8 +83,6 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
                 practiceName = it.value.toString()
                 setTitle(practiceName)
             }
-
-        setTitle(practiceName)
 
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -110,12 +116,17 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
                 tvTitle.text = titleText
                 tvQuestion.text = questions[position].question
 
-                progressBar.max = 10
+                progressBar.max = questions[position].time
                 progressBar.progress = progressBar.max
 
                 val tvTimeText = "${progressBar.progress}c"
                 tvTime.text = tvTimeText
                 startTimer(progressBar.max)
+
+                if (questions[position].image.isNotEmpty()) {
+                    cvQuestion.visibility = View.VISIBLE
+                    Glide.with(this@PassingActivity).load(questions[position].image).into(ivQuestion)
+                }
 
                 btnNext.setOnClickListener {
                     btnNextOnClickListener(it)
@@ -141,9 +152,17 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
             val intent = Intent(it.context, ScoreActivity::class.java)
             intent.putExtra("score", score)
             intent.putExtra("questions_size", questions.size)
+            intent.putExtra("time", time)
             startActivity(intent)
             finish()
             return
+        }
+
+        if (questions[position].image.isNotEmpty()) {
+            cvQuestion.visibility = View.VISIBLE
+            Glide.with(this@PassingActivity).load(questions[position].image).into(ivQuestion)
+        } else {
+            cvQuestion.visibility = View.GONE
         }
 
         variantsCount = questions[position].variants.size
@@ -159,7 +178,7 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
         tvTitle.text = titleText
         tvQuestion.text = questions[position].question
 
-        progressBar.max = 10
+        progressBar.max = questions[position].time
         progressBar.progress = progressBar.max
 
         val tvTimeText = "${progressBar.progress}c"
@@ -173,6 +192,7 @@ class PassingActivity : DefaultActivity(), ChoicesRecyclerViewInterface {
             1000
         ) {
             override fun onTick(millisUntilFinished: Long) {
+                ++time
                 --progressBar.progress
                 val tvTimeText = "${progressBar.progress}c"
                 tvTime.text = tvTimeText

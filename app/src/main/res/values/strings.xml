@@ -18,7 +18,7 @@
     <string name="quiz_name_label">Название</string>
     <string name="quiz_description_label">Описание</string>
     <string name="create_new_question_prompt">Добавить вопрос</string>
-    <string name="question_name_hint">Формулировка вопроса</string>
+    <string name="question_name_hint">Формулировка</string>
     <string name="question_variant_hint">Вариант ответа</string>
     <string name="btn_next_label">Далее</string>
     <string name="QUESTION_KEY">questions</string>
@@ -37,4 +37,6 @@
     <string name="tv_account_label_text">Вы вошли под аккаунтом:</string>
     <string name="tv_profile_quizzes_text">Ваши квизы:</string>
     <string name="tv_no_quizzes_text">Квизов пока что нет!</string>
+    <string name="tv_author_label_text">Автор:</string>
+    <string name="tv_questions_label_text">Вопросов:</string>
 </resources>

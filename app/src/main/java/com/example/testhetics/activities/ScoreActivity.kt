@@ -4,25 +4,26 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.testhetics.R
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class ScoreActivity : DefaultActivity() {
-    lateinit var imgTrophy: ImageView
-    lateinit var tvCongrats: TextView
-    lateinit var indicator: CircularProgressIndicator
-    lateinit var tvScoreValue: TextView
+    private lateinit var imgTrophy: ImageView
+    private lateinit var tvCongrats: TextView
+    private lateinit var indicator: CircularProgressIndicator
+    private lateinit var tvScorePercent: TextView
+    private lateinit var tvCorrect: TextView
+    private lateinit var tvIncorrect: TextView
+    private lateinit var tvTime: TextView
 
     private fun init() {
         imgTrophy = findViewById(R.id.img_trophy)
         tvCongrats = findViewById(R.id.tv_congrats)
         indicator = findViewById(R.id.score_indicator)
-        tvScoreValue = findViewById(R.id.tv_score_value)
+        tvScorePercent = findViewById(R.id.tv_score_percent)
+        tvCorrect = findViewById(R.id.tv_correct)
+        tvIncorrect = findViewById(R.id.tv_incorrect)
+        tvTime = findViewById(R.id.tv_time_value)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,12 @@ class ScoreActivity : DefaultActivity() {
 
         val score = bundle.getInt("score")
         val questionsCount = bundle.getInt("questions_size")
+        val time = bundle.getInt("time")
+
+        tvCorrect.text = score.toString()
+        tvIncorrect.text = (questionsCount - score).toString()
+        val tvTimeText = "${time}c"
+        tvTime.text = tvTimeText
 
         indicator.max = questionsCount
         indicator.progress = score
@@ -60,7 +67,7 @@ class ScoreActivity : DefaultActivity() {
         }
 
         val percent = "%.1f".format(ratio * 100)
-        val scoreValue = "$score/$questionsCount ($percent%)"
-        tvScoreValue.text = scoreValue
+        val scoreValue = "$percent%"
+        tvScorePercent.text = scoreValue
     }
 }

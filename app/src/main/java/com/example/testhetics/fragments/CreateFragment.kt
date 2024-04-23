@@ -19,11 +19,6 @@ class CreateFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_create, container, false)
 
         val btnCreateQuiz = view.findViewById<Button>(R.id.btn_create_quiz)
-        val btnCreateTest = view.findViewById<Button>(R.id.btn_create_test)
-        val btnCreatePoll = view.findViewById<Button>(R.id.btn_create_poll)
-
-        btnCreateTest.isEnabled = false
-        btnCreatePoll.isEnabled = false
 
         btnCreateQuiz.setOnClickListener {
             val intent = Intent(it.context, CreateQuizActivity::class.java)

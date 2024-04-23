@@ -56,7 +56,7 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -107,41 +107,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:itemCount="3"
         tools:listitem="@layout/item_choice">
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_variant_1"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginBottom="16dp"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="16dp"-->
-        <!--            android:text="Button" />-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_variant_2"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginBottom="16dp"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="16dp"-->
-        <!--            android:text="Button" />-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_variant_3"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginBottom="16dp"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="16dp"-->
-        <!--            android:text="Button" />-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_variant_4"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:gravity="start|center_vertical"-->
-        <!--            android:paddingStart="16dp"-->
-        <!--            android:text="Button" />-->
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
@@ -156,4 +121,31 @@
         android:text="@string/btn_next_label"
         app:layout_constraintBottom_toTopOf="@+id/rv_choice"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_question_passing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/blue"
+        app:cardCornerRadius="16dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_question"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_question_passing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
